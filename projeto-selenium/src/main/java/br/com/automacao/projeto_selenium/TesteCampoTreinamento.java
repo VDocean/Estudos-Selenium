@@ -1,6 +1,7 @@
 package br.com.automacao.projeto_selenium;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -11,7 +12,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
 
-import junit.framework.Assert;
+
+
+
 
 public class TesteCampoTreinamento {
 	 
@@ -126,6 +129,7 @@ public class TesteCampoTreinamento {
 		driver.quit();
 	}
 	
+	@Test
 	public void deveBuscarTextosNaPagina(){
 		driver.manage().window().setSize(new Dimension(1200, 765));
 		driver.get("file:///"+ System.getProperty("user.dir")+ "/src/main/resources/componentes.html");
