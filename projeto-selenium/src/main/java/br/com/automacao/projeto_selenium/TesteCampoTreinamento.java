@@ -125,5 +125,17 @@ public class TesteCampoTreinamento {
 		driver.findElement(By.linkText("Voltar")).click();
 		driver.quit();
 	}
+	
+	public void deveBuscarTextosNaPagina(){
+		driver.manage().window().setSize(new Dimension(1200, 765));
+		driver.get("file:///"+ System.getProperty("user.dir")+ "/src/main/resources/componentes.html");
+		//Assert.assertTrue(driver.findElement(By.tagName("body")).getText().contains("Campo de Treinamento"));// verifica se é verdade
+		//que dentro do corpo da pagina existe o nome "Campo Treinamento"
+		Assert.assertEquals("Campo de Treinamento", driver.findElement(By.tagName("h3")).getText());// verifica se o nome dentro da tag h3 é igual a campo de treinamento
+		
+		
+		driver.quit();
+		
+	}
 
 }
