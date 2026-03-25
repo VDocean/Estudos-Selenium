@@ -1,0 +1,76 @@
+package br.com.automacao.projeto_selenium;
+
+import org.junit.Assert;
+ 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class DesafioValidaRegrasDeNegocios {
+	/*
+	 * 1 - nome é obrigatório
+	 * 2 - sobrenome é obrigatório
+	 * 3 - sexo é obrigatório
+	 * 4 - não posso esolher simultaneamente  carne e vegetariano
+	 * 5 -  não posso escolher um esporte e o que é esporte
+	 */
+	private WebDriver driver;
+	
+	@BeforeEach // realizado antes da execução de cada método
+	public void inicializa() {
+	    driver=new ChromeDriver();
+		driver.manage().window().setSize(new Dimension(1200, 765));
+		driver.get("file:///"+ System.getProperty("user.dir")+ "/src/main/resources/componentes.html");
+	}
+	
+	@AfterEach // realizado após a execução de cada método
+	public void finaliza() {
+		driver.quit();
+	}
+	
+	
+	@Test
+	//@Ignore
+	public void veririficaNome() {
+		
+		
+		driver.findElement(By.id("elementosForm:cadastrar")).click();
+		
+		Alert alerta=driver.switchTo().alert();
+		String msg=alerta.getText();
+		
+		Assert.assertEquals("Nome eh obrigatorio",msg);
+		
+		alerta.accept();
+		
+		driver.findElement(By.id("elementosForm:nome")).sendKeys("Chico");
+	}
+	//@Ignore
+	@Test
+	public void verificaSobrenome() {
+		driver.findElement(By.id("elementosForm:nome")).sendKeys("Chico");
+		
+		driver.findElement(By.id("elementosForm:cadastrar")).click();
+		Alert alerta=driver.switchTo().alert();
+		String msg=alerta.getText();
+		
+		Assert.assertEquals("Sobrenome eh obrigatorio", msg);
+		
+		alerta.accept();
+		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Bento");
+		
+	
+	}
+	
+	/*
+	public void VerificaSelecaoSlecionaSexo() {
+		
+	}
+	*/
+
+}
