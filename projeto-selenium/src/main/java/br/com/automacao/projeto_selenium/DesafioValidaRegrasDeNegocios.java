@@ -9,7 +9,9 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class DesafioValidaRegrasDeNegocios {
 	/*
@@ -67,10 +69,63 @@ public class DesafioValidaRegrasDeNegocios {
 	
 	}
 	
-	/*
-	public void VerificaSelecaoSlecionaSexo() {
+	@Test
+	public void VerificaSelecaoSexo() {
+		driver.findElement(By.id("elementosForm:nome")).sendKeys("Chico");
+		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Bento");
+		driver.findElement(By.id("elementosForm:cadastrar")).click();
+		
+		Alert alerta=driver.switchTo().alert();
+		String msg=alerta.getText();
+		Assert.assertEquals("Sexo eh obrigatorio", msg);
+		alerta.accept();
+	}
+	
+	@Test
+	public void verificaSelecaoComida() {
+		driver.findElement(By.id("elementosForm:nome")).sendKeys("Chico");
+		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Bento");
+		driver.findElement(By.id("elementosForm:sexo:1")).click();
+		driver.findElement(By.id("elementosForm:comidaFavorita:0")).click();
+		driver.findElement(By.id("elementosForm:comidaFavorita:3")).click();
+		driver.findElement(By.id("elementosForm:cadastrar")).click();
+		
+		Alert alerta=driver.switchTo().alert();
+		String msg=alerta.getText();
+		Assert.assertEquals("Tem certeza que voce eh vegetariano?", msg);
+		alerta.accept();
+				
+	} 
+	
+	@Test
+	public void verificaPraticaEsporte() {
+		driver.findElement(By.id("elementosForm:nome")).sendKeys("Chico");
+		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Bento");
+		driver.findElement(By.id("elementosForm:sexo:1")).click();
+		driver.findElement(By.id("elementosForm:comidaFavorita:0")).click();
+		driver.findElement(By.id("elementosForm:comidaFavorita:2")).click();
+		
+		WebElement comboEscolaridade=driver.findElement(By.id("elementosForm:escolaridade"));
+		Select listaEscolaridade=new Select(comboEscolaridade);
+		listaEscolaridade.selectByVisibleText("Mestrado");
+		
+		driver.findElement(By.id("elementosForm:cadastrar")).click();
+		
+		WebElement comboEsporte=driver.findElement(By.id("elementosForm:esportes"));
+		Select listaEsporte=new Select(comboEsporte);
+		
+		listaEsporte.selectByVisibleText("Natacao");
+		listaEsporte.selectByVisibleText("O que eh esporte?");
+		
+		driver.findElement(By.id("elementosForm:cadastrar")).click();
+		
+		Alert alerta=driver.switchTo().alert();
+		String msg=alerta.getText();
+		
+		Assert.assertEquals("Voce faz esporte ou nao?",msg);
+		
 		
 	}
-	*/
+
 
 }

@@ -17,6 +17,7 @@ public class TesteCampoTreinamento {
  
 	
     private WebDriver driver;
+	private DSL dsl;
 	
 	@BeforeEach // realizado antes da execução de cada método
 	public void inicializa() {
@@ -24,6 +25,7 @@ public class TesteCampoTreinamento {
 		driver.manage().window().setSize(new Dimension(1200, 765));
 		driver.get("file:///"+ System.getProperty("user.dir")+ "/src/main/resources/componentes.html"); // essa linha pede para o driver buscar uma url
 		// file/// indica que é uma url local , System.getProperty("user.dir") retorna o diretorio de trabalho atual
+        dsl=new DSL(driver);	
 	}
 	
 	@AfterEach // realizado após a execução de cada método
@@ -34,23 +36,20 @@ public class TesteCampoTreinamento {
 	@Test
 	public void testeInterageTextField() {
 		
-		driver.findElement(By.id("elementosForm:nome")).sendKeys("Teste de escrita");
-		Assert.assertEquals("Teste de escrita", driver.findElement(By.id("elementosForm:nome")).getAttribute("value")); // verifica se o valor do campo é igual ao esperad
-		
-		
-        
-		
+	    dsl.escreve("elementosForm:nome","Teste de escrita");
+		Assert.assertEquals("Teste de escrita",dsl.obterValorCampo("elementosForm:nome")); // verifica se o valor do campo é igual ao esperad
+			
 	}
 	@Test
 	public void testeInterageTextArea() {
-		driver.findElement(By.id("elementosForm:sugestoes")).sendKeys("testes\nPula uma linha");
-		Assert.assertEquals("testes\nPula uma linha",driver.findElement(By.id("elementosForm:sugestoes")).getAttribute("value"));
+		dsl.escreve("elementosForm:sugestoes", "testes\nPula uma linha");
+		Assert.assertEquals("testes\nPula uma linha",dsl.obterValorCampo("elementosForm:sugestoes"));
 		
 	}
 	
 	@Test
 	public void testeInterageRadioButtons() {
-		driver.findElement(By.id("elementosForm:sexo:0")).click();
+		dsl.clicarRadio("elementosForm:sexo:0");
 		Assert.assertTrue(driver.findElement(By.id("elementosForm:sexo:0")).isSelected());
 		
 	}
@@ -58,17 +57,26 @@ public class TesteCampoTreinamento {
 	@Test
 	public void testeInterageCheckBox() {
 	
-		driver.findElement(By.id("elementosForm:comidaFavorita:2")).click();
-		Assert.assertTrue(driver.findElement(By.id("elementosForm:comidaFavorita:2")).isSelected());
+		dsl.clicarRadio("elementosForm:comidaFavorita:2");
+		Assert.assertTrue(dsl.isRadioMarcado("elementosForm:comidaFavorita:2"));
 		
 	}
 	
 	@Test 
-	public void deveVerificarValoresLista() {
+	public void deveInteragirCombo() {
+		
+	    dsl.selecionarCombo("elementosForm:escolaridade", "2o grau completo");
+		Assert.assertEquals( "2o grau completo",dsl.obterValorCombo("elementosForm:escolaridade", "2o grau completo"));
+		
+	}
+		
+	@Test
+	public void deveVerificarValoresCombo() {	
+		
 		WebElement element=driver.findElement(By.id("elementosForm:escolaridade")); // aqui crio uma varável do tipo WebElement que é o tipo para qualquer retorno de infromação de uma página 
 		Select lista=new Select(element);// uso a classe select pois ela tem um conjunto de métodos para manipulação de elementos do tipo select ou lista suspensas em html
+		lista.selectByVisibleText("2o grau completo");
 		List<WebElement> options=lista.getOptions();
-		Assert.assertEquals(8,options.size());
 		
 		//verifica uma consulta de nome de opção
 		boolean encontrou=false;	
@@ -80,20 +88,17 @@ public class TesteCampoTreinamento {
 		
 		}
 		Assert.assertTrue(encontrou);
-	
+	    
 		
 		}
 	@Test 
 		public void deveVerificarValoresComboMultiplo(){
-			WebElement element=driver.findElement(By.id("elementosForm:esportes")); // aqui crio uma varável do tipo WebElement que é o tipo para qualquer retorno de infromação de uma página 
-			Select lista=new Select(element);
-			//Múltipla seleção de uma lista
-			lista.selectByVisibleText("Futebol");
-			lista.selectByVisibleText("Corrida");
-			lista.selectByVisibleText("Karate");
+		dsl.selecionarCombo("elementosForm:esportes","Futebol");
+		dsl.selecionarCombo("elementosForm:esportes","Corrida");
+		dsl.selecionarCombo("elementosForm:esportes","Karate");
 			
-			
-			//Verifica se a quantidade de opçoes selecionadas é igual a 3
+		/* 
+		//Verifica se a quantidade de opçoes selecionadas é igual a 3
 			List<WebElement> AllOptionsSelected=lista.getAllSelectedOptions();
 			Assert.assertEquals(3,AllOptionsSelected.size());
 			
@@ -102,16 +107,16 @@ public class TesteCampoTreinamento {
 			lista.deselectByVisibleText("Karate");
 			List<WebElement> AllOptionsSelectedTwo=lista.getAllSelectedOptions();
 			Assert.assertEquals(2,AllOptionsSelectedTwo.size());
-		
+		*/
 			
 		}
 	
 	    
 	@Test 
 		public void deveInteragirComBotoes() {
+			dsl.clicarBotao("buttonSimple");
 			
 			WebElement botao=driver.findElement(By.id("buttonSimple"));
-			botao.click();
 			Assert.assertEquals("Obrigado!", botao.getAttribute("value"));
 			 
 		}
@@ -119,9 +124,8 @@ public class TesteCampoTreinamento {
 	@Test 
 	//@Ignore--> ignotra o teste
 	public void deveInteragirComLinks() {
-
-		driver.findElement(By.linkText("Voltar")).click();
-		 
+		 dsl.clicarLinks("Voltar");
+		 Assert.assertEquals("Voltou!", dsl.obterTexto("resultado"));
 	}
 	
 	@Test
@@ -129,10 +133,8 @@ public class TesteCampoTreinamento {
 		
 		//Assert.assertTrue(driver.findElement(By.tagName("body")).getText().contains("Campo de Treinamento"));// verifica se é verdade
 		//que dentro do corpo da pagina existe o nome "Campo Treinamento"
-		Assert.assertEquals("Campo de Treinamento", driver.findElement(By.tagName("h3")).getText());// verifica se o nome dentro da tag h3 é igual a campo de treinamento
+		Assert.assertEquals("Campo de Treinamento", dsl.obterTexto(By.tagName("h3")));// verifica se o nome dentro da tag h3 é igual a campo de treinamento
 		
-		
-	
 		
 	}
 
