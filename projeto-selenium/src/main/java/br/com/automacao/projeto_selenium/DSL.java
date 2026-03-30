@@ -62,4 +62,6 @@ public class DSL {
 	public String obterTexto(String id) {
 		return obterTexto(By.id(id));
 	}
+	
+	 
 }

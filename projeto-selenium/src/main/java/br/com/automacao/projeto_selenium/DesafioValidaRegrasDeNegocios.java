@@ -25,14 +25,14 @@ public class DesafioValidaRegrasDeNegocios {
 	
 	@BeforeEach // realizado antes da execução de cada método
 	public void inicializa() {
-	    driver=new ChromeDriver();
-		driver.manage().window().setSize(new Dimension(1200, 765));
-		driver.get("file:///"+ System.getProperty("user.dir")+ "/src/main/resources/componentes.html");
+	    driver=new ChromeDriver(); //inicializa o driver do navegador em questão
+		driver.manage().window().setSize(new Dimension(1200, 765));//seta o tamanho da aba de teste que sera aberta
+		driver.get("file:///"+ System.getProperty("user.dir")+ "/src/main/resources/componentes.html");// diz ao selenim um arquivo será pego
 	}
 	
 	@AfterEach // realizado após a execução de cada método
 	public void finaliza() {
-		driver.quit();
+		driver.quit();//fecha a guia atual
 	}
 	
 	
@@ -58,12 +58,12 @@ public class DesafioValidaRegrasDeNegocios {
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Chico");
 		
 		driver.findElement(By.id("elementosForm:cadastrar")).click();
-		Alert alerta=driver.switchTo().alert();
+		Alert alerta=driver.switchTo().alert(); // mudar o foco para o alert aberto
 		String msg=alerta.getText();
 		
 		Assert.assertEquals("Sobrenome eh obrigatorio", msg);
 		
-		alerta.accept();
+		alerta.accept(); // seleciona o ok do alert
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Bento");
 		
 	

@@ -12,13 +12,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class TestaAlert {
 	
 private WebDriver driver;
-	
+private DSL dsl;
+
 	@BeforeEach // realizado antes da execução de cada método
 	public void inicializa() {
 		driver=new ChromeDriver(); 
 		driver.manage().window().setSize(new Dimension(1200, 765));
 		driver.get("file:///"+ System.getProperty("user.dir")+ "/src/main/resources/componentes.html"); // essa linha pede para o driver buscar uma url
 		// file/// indica que é uma url local , System.getProperty("user.dir") retorna o diretorio de trabalho atual
+		dsl=new DSL(driver);
 	}
 	
 	
@@ -31,28 +33,26 @@ private WebDriver driver;
 
     public void deveInteragirComAlertSimples() {
 	
-	driver.findElement(By.id("alert")).click();
+	dsl.clicarRadio("alert");
 	Alert alert=driver.switchTo().alert();// muda o foco da tela para o novo modal de alert
 	String textoAlerta=alert.getText();
 	Assert.assertEquals("Alert Simples",textoAlerta);// compara o primeiro paramntro com a mensagem de texto do alert
-	
 	alert.accept(); // fecha o alert clicando no botão de ok
+	dsl.escreve("elementosForm:nome",textoAlerta);
 	
-	driver.findElement(By.id("elementosForm:nome")).sendKeys(textoAlerta); // poe a mensagem de texto do alert no campo elementosForm:nome
 
 }
-	
     @Test
     public void InterageComAlertConfirma() {
 	
-	driver.findElement(By.id("confirm")).click();
+	dsl.clicarRadio("confirm");
 	Alert alertConfirm=driver.switchTo().alert();
 	alertConfirm.accept();//clica ok na mensagem de confirm
 	Alert alertConfirmConfirmado=driver.switchTo().alert();
 	Assert.assertEquals("Confirmado",alertConfirmConfirmado.getText());
 	alertConfirm.accept();//clica na mensagem de confirm
 	
-	driver.findElement(By.id("confirm")).click();
+	dsl.clicarRadio("confirm");
 	Alert alertCancel=driver.switchTo().alert();
 	alertCancel.dismiss();// clica no botão de cancelar
 	Alert alertConfirmaCancel=driver.switchTo().alert();
