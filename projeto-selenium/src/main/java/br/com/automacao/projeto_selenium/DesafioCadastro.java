@@ -50,6 +50,7 @@ public class DesafioCadastro {
 		Assert.assertEquals("Bento",dsl.obterValorCampo("elementosForm:sobrenome"));
 		Assert.assertTrue(dsl.isRadioMarcado("elementosForm:sexo:1"));
 		Assert.assertEquals("2o grau completo",dsl.obterValorCombo("elementosForm:escolaridade", "2o grau completo"));
+		Assert.assertTrue(dsl.verificarOpcaoCombo("elementosForm:esportes","Corrida"));
 		
 	}
 	
