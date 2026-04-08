@@ -34,8 +34,8 @@ public class DesafioCadastro {
 	@Test
 	public void preencheDadosCadastro() {
 		
-		dsl.escreve("elementosForm:nome","Chico");
-		dsl.escreve("elementosForm:sobrenome","Bento"); 
+		dsl.escrever("elementosForm:nome","Chico");
+		dsl.escrever("elementosForm:sobrenome","Bento"); 
 		dsl.clicarRadio("elementosForm:comidaFavorita:2");
 		dsl.clicarRadio("elementosForm:sexo:1"); 
 		dsl.selecionarCombo("elementosForm:escolaridade","2o grau completo");

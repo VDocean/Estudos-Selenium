@@ -36,13 +36,13 @@ public class TesteCampoTreinamento {
 	@Test
 	public void testeInterageTextField() {
 		
-	    dsl.escreve("elementosForm:nome","Teste de escrita");
+	    dsl.escrever("elementosForm:nome","Teste de escrita");
 		Assert.assertEquals("Teste de escrita",dsl.obterValorCampo("elementosForm:nome")); // verifica se o valor do campo é igual ao esperad
 			
 	}
 	@Test
 	public void testeInterageTextArea() {
-		dsl.escreve("elementosForm:sugestoes", "testes\nPula uma linha");
+		dsl.escrever("elementosForm:sugestoes", "testes\nPula uma linha");
 		Assert.assertEquals("testes\nPula uma linha",dsl.obterValorCampo("elementosForm:sugestoes"));
 		
 	}
@@ -50,15 +50,15 @@ public class TesteCampoTreinamento {
 	@Test
 	public void testeInterageRadioButtons() {
 		dsl.clicarRadio("elementosForm:sexo:0");
-		Assert.assertTrue(driver.findElement(By.id("elementosForm:sexo:0")).isSelected());
+		Assert.assertTrue(dsl.isRadioMarcado("elementosForm:sexo:0"));
 		
 	}
 	
 	@Test
 	public void testeInterageCheckBox() {
 	
-		dsl.clicarRadio("elementosForm:comidaFavorita:2");
-		Assert.assertTrue(dsl.isRadioMarcado("elementosForm:comidaFavorita:2"));
+		dsl.clicarCheck("elementosForm:comidaFavorita:2");
+		Assert.assertTrue(dsl.isCheckMarcado("elementosForm:comidaFavorita:2"));
 		
 	}
 	
@@ -73,21 +73,11 @@ public class TesteCampoTreinamento {
 	@Test
 	public void deveVerificarValoresCombo() {	
 		
-		WebElement element=driver.findElement(By.id("elementosForm:escolaridade")); // aqui crio uma varável do tipo WebElement que é o tipo para qualquer retorno de infromação de uma página 
-		Select lista=new Select(element);// uso a classe select pois ela tem um conjunto de métodos para manipulação de elementos do tipo select ou lista suspensas em html
-		lista.selectByVisibleText("2o grau completo");
-		List<WebElement> options=lista.getOptions();
-		
-		//verifica uma consulta de nome de opção
-		boolean encontrou=false;	
-		for (WebElement option:options) {
-			if (option.getText().equals("1o grau incompleto")) {
-				encontrou=true;
-				break;
-			}
-		
-		}
-		Assert.assertTrue(encontrou);
+		dsl.selecionarCombo("elementosForm:escolaridade", "2o grau completo");
+		 
+		//verifica uma consulta de nome de opção;
+		dsl.obterValorCombo("elementosForm:escolaridade","1o grau incompleto");
+
 	    
 		
 		}
@@ -115,9 +105,8 @@ public class TesteCampoTreinamento {
 	@Test 
 		public void deveInteragirComBotoes() {
 			dsl.clicarBotao("buttonSimple");
-			
-			WebElement botao=driver.findElement(By.id("buttonSimple"));
-			Assert.assertEquals("Obrigado!", botao.getAttribute("value"));
+			String texto=dsl.obterValueElemento("buttonSimple");
+			Assert.assertEquals("Obrigado!",texto);
 			 
 		}
 	    

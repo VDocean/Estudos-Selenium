@@ -33,31 +33,27 @@ private DSL dsl;
 
     public void deveInteragirComAlertSimples() {
 	
-	dsl.clicarRadio("alert");
-	Alert alert=driver.switchTo().alert();// muda o foco da tela para o novo modal de alert
-	String textoAlerta=alert.getText();
+	dsl.clicarBotao("alert");
+	String textoAlerta=dsl.alertaObterTextoEAceita();
 	Assert.assertEquals("Alert Simples",textoAlerta);// compara o primeiro paramntro com a mensagem de texto do alert
-	alert.accept(); // fecha o alert clicando no botão de ok
-	dsl.escreve("elementosForm:nome",textoAlerta);
+	
 	
 
 }
     @Test
     public void InterageComAlertConfirma() {
 	
-	dsl.clicarRadio("confirm");
-	Alert alertConfirm=driver.switchTo().alert();
-	alertConfirm.accept();//clica ok na mensagem de confirm
-	Alert alertConfirmConfirmado=driver.switchTo().alert();
-	Assert.assertEquals("Confirmado",alertConfirmConfirmado.getText());
-	alertConfirm.accept();//clica na mensagem de confirm
+	dsl.clicarBotao("confirm");
+	dsl.alertaObterTextoEAceita();
+	String textoAlerta=dsl.alertaObterTextoEAceita();
+	Assert.assertEquals("Confirmado",textoAlerta);
 	
-	dsl.clicarRadio("confirm");
-	Alert alertCancel=driver.switchTo().alert();
-	alertCancel.dismiss();// clica no botão de cancelar
-	Alert alertConfirmaCancel=driver.switchTo().alert();
-	Assert.assertEquals("Negado",alertConfirmaCancel.getText());
-    alertCancel.dismiss();//clica no ok do botão de cancelar
+	
+	dsl.clicarBotao("confirm");
+	dsl.alertaObterTextoENega();
+	textoAlerta=dsl.alertaObterTextoENega();
+	Assert.assertEquals("Negado",textoAlerta);
+   
 	
 	
 	
@@ -65,15 +61,14 @@ private DSL dsl;
 
      @Test
      public void InterageComAlertPrompt() {
+    	 
+	dsl.clicarBotao("prompt");
+	dsl.alertaEscrever("55");
+	dsl.AlertSomenteAceita();
+	String textoAlert=dsl.alertaObterTextoEAceita();
+	Assert.assertEquals("Era 55?",textoAlert);
+	textoAlert=dsl.alertaObterTextoEAceita();
+	Assert.assertEquals(":D",textoAlert);
 	
-	driver.findElement(By.id("prompt")).click(); // cliquei no botão prompt que abre um alert
-	
-	Alert alert=driver.switchTo().alert();
-	alert.sendKeys("55");
-	alert.accept();
-	Assert.assertEquals("Era 55?",alert.getText());
-	alert.accept();
-	Assert.assertEquals(":D",alert.getText());
-	alert.accept();
 }
 }
