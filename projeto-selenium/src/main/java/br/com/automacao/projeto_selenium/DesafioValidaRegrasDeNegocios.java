@@ -23,12 +23,15 @@ public class DesafioValidaRegrasDeNegocios {
 	 */
 	private WebDriver driver;
 	private DSL dsl;
+	private CampoTreinamentoPage page;
+	
 	@BeforeEach // realizado antes da execução de cada método
 	public void inicializa() {
 	    driver=new ChromeDriver(); //inicializa o driver do navegador em questão
 		driver.manage().window().setSize(new Dimension(1200, 765));//seta o tamanho da aba de teste que sera aberta
 		driver.get("file:///"+ System.getProperty("user.dir")+ "/src/main/resources/componentes.html");// diz ao selenim um arquivo será pego
 	    dsl=new DSL(driver);
+	    page=new CampoTreinamentoPage(driver);
 	}
 	
 	@AfterEach // realizado após a execução de cada método
@@ -39,9 +42,9 @@ public class DesafioValidaRegrasDeNegocios {
 	
 	@Test
 	//@Ignore
-	public void veririficaNome() {
+	public void verificaNome() {
 		
-		dsl.clicarBotao("elementosForm:cadastrar");
+		page.cadastrar();
 		String msg=dsl.alertaObterTextoEAceita();
 		Assert.assertEquals("Nome eh obrigatorio",msg);
 	}
@@ -49,8 +52,8 @@ public class DesafioValidaRegrasDeNegocios {
 	@Test
 	public void verificaSobrenome() {
 		
-		dsl.escrever("elementosForm:nome", "Chico");
-		dsl.clicarBotao("elementosForm:cadastrar");
+		page.setNome("Chico");
+		page.cadastrar();
 		String msg=dsl.alertaObterTextoEAceita();		
 		Assert.assertEquals("Sobrenome eh obrigatorio", msg);
 		
@@ -60,9 +63,9 @@ public class DesafioValidaRegrasDeNegocios {
 	@Test
 	public void VerificaSelecaoSexo() {
 		
-		dsl.escrever("elementosForm:nome", "Chico");
-		dsl.escrever("elementosForm:sobrenome", "Bento");
-		dsl.clicarBotao("elementosForm:cadastrar");
+		page.setNome("Chico");
+		page.setSobrenome("Bento");
+		page.cadastrar();
 		String msg=dsl.alertaObterTextoEAceita();
 		Assert.assertEquals("Sexo eh obrigatorio", msg);
 	
@@ -70,12 +73,14 @@ public class DesafioValidaRegrasDeNegocios {
 	
 	@Test
 	public void verificaSelecaoComida() {
-		dsl.escrever("elementosForm:nome", "Chico");
-		dsl.escrever("elementosForm:sobrenome", "Bento");
-		dsl.clicarRadio("elementosForm:sexo:0");
-		dsl.clicarCheck("elementosForm:comidaFavorita:0");
-		dsl.clicarCheck("elementosForm:comidaFavorita:3");
-		dsl.clicarBotao("elementosForm:cadastrar");
+		
+		page.setNome("Chico");
+		page.setSobrenome("Bento");
+		page.setSexoMasculino();
+		page.setComidaCarne();
+		page.setComidaVegetariano();
+		page.cadastrar();
+		
 		String msg=dsl.alertaObterTextoEAceita();
 		Assert.assertEquals("Tem certeza que voce eh vegetariano?", msg);
 		
@@ -83,16 +88,16 @@ public class DesafioValidaRegrasDeNegocios {
 	
 	@Test
 	public void verificaPraticaEsporte() {
-		dsl.escrever("elementosForm:nome","Chico");
-		dsl.escrever("elementosForm:sobrenome","Bento");
-		dsl.clicarRadio("elementosForm:sexo:0");
-		dsl.clicarCheck("elementosForm:comidaFavorita:0");
-		dsl.clicarCheck("elementosForm:comidaFavorita:2");
-		dsl.selecionarCombo("elementosForm:escolaridade","Mestrado");
-		dsl.selecionarCombo("elementosForm:esportes","Natacao");
-		dsl.selecionarCombo("elementosForm:esportes","O que eh esporte?");
-		dsl.clicarBotao("elementosForm:cadastrar");
 		
+		page.setNome("Chico");
+		page.setSobrenome("Bento");
+		page.setSexoMasculino();
+		page.setComidaCarne();
+		page.setEscolaridade("Mestrado");
+		page.setEsporte("Natacao");
+		page.setEsporte("O que eh esporte?");
+		page.cadastrar();
+				
 		String msg=dsl.alertaObterTextoEAceita();
 		Assert.assertEquals("Voce faz esporte ou nao?",msg);
 		

@@ -15,6 +15,7 @@ public class DesafioCadastro {
 	
 	WebDriver driver;
 	private DSL dsl;
+	private CampoTreinamentoPage page;
 	
 	@BeforeEach // realizado antes da execução de cada método
 	public void inicializa() {
@@ -23,6 +24,7 @@ public class DesafioCadastro {
 		driver.get("file:///"+ System.getProperty("user.dir")+ "/src/main/resources/componentes.html"); // essa linha pede para o driver buscar uma url
 		// file/// indica que é uma url local , System.getProperty("user.dir") retorna o diretorio de trabalho atual
 	    dsl=new DSL(driver);
+	    page=new CampoTreinamentoPage(driver);
 	}
 	
 	
@@ -34,23 +36,21 @@ public class DesafioCadastro {
 	@Test
 	public void preencheDadosCadastro() {
 		
-		dsl.escrever("elementosForm:nome","Chico");
-		dsl.escrever("elementosForm:sobrenome","Bento"); 
-		dsl.clicarRadio("elementosForm:comidaFavorita:2");
-		dsl.clicarRadio("elementosForm:sexo:1"); 
-		dsl.selecionarCombo("elementosForm:escolaridade","2o grau completo");
-		dsl.selecionarCombo("elementosForm:esportes","Natacao");
-		dsl.selecionarCombo("elementosForm:esportes","Futebol");
-		dsl.selecionarCombo("elementosForm:esportes","Corrida");
-		dsl.clicarBotao("elementosForm:cadastrar");
+		page.setNome("Chico");
+		page.setSobrenome("Bento");
+		page.setSexoMasculino();
+		page.setComidaCarne();
+		page.setEscolaridade("2o grau completo");
+		page.setEsporte("Corrida");
+		page.cadastrar();
 		 		
 		//Validações
 		
-		Assert.assertEquals("Chico",dsl.obterValorCampo("elementosForm:nome"));
-		Assert.assertEquals("Bento",dsl.obterValorCampo("elementosForm:sobrenome"));
-		Assert.assertTrue(dsl.isRadioMarcado("elementosForm:sexo:1"));
-		Assert.assertEquals("2o grau completo",dsl.obterValorCombo("elementosForm:escolaridade", "2o grau completo"));
-		Assert.assertTrue(dsl.verificarOpcaoCombo("elementosForm:esportes","Corrida"));
+		Assert.assertEquals("Nome: Chico",page.obterNomeCadastro());
+		Assert.assertEquals("Sobrenome: Bento",page.obterSobrenomeCadastro());
+		Assert.assertEquals("Sexo: Masculino",page.obterSexoCadastro());
+		Assert.assertEquals("Escolaridade: 2graucomp",page.obterEscolaridadeCadastro());
+		Assert.assertEquals("Esportes: Corrida",page.obterEsportesCadastro());
 		
 	}
 	
