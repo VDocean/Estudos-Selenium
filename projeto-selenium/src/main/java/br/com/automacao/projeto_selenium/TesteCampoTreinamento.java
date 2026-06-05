@@ -1,5 +1,7 @@
 package br.com.automacao.projeto_selenium;
+
 import java.util.List;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +12,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
-
 
 public class TesteCampoTreinamento {
 	 
@@ -30,7 +31,7 @@ public class TesteCampoTreinamento {
 	
 	@AfterEach // realizado após a execução de cada método
 	public void finaliza() {
-		driver.quit();//fecha o navegador
+		//driver.quit();//fecha o navegador
 	}
 	
 	@Test
@@ -87,17 +88,7 @@ public class TesteCampoTreinamento {
 		dsl.selecionarCombo("elementosForm:esportes","Corrida");
 		dsl.selecionarCombo("elementosForm:esportes","Karate");
 			
-		/* 
-		//Verifica se a quantidade de opçoes selecionadas é igual a 3
-			List<WebElement> AllOptionsSelected=lista.getAllSelectedOptions();
-			Assert.assertEquals(3,AllOptionsSelected.size());
-			
-			//verifica se a quantidade de item selecionados é 2 após desselecionar 1
-			
-			lista.deselectByVisibleText("Karate");
-			List<WebElement> AllOptionsSelectedTwo=lista.getAllSelectedOptions();
-			Assert.assertEquals(2,AllOptionsSelectedTwo.size());
-		*/
+		
 			
 		}
 	
@@ -126,5 +117,6 @@ public class TesteCampoTreinamento {
 		
 		
 	}
+	 
 
 }

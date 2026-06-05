@@ -39,10 +39,12 @@ public class DSL {
 	}
 	
 	/**************************Radio e Check*****************/
-	
+	public void clicarRadio(By by) {
+		driver.findElement(by).click();
+	}
 	
 	public void clicarRadio(String id) {
-		driver.findElement(By.id(id)).click();
+		clicarRadio(By.id(id));
 	}
 	
 	public boolean isRadioMarcado(String id) {
@@ -58,6 +60,10 @@ public class DSL {
 		return driver.findElement(By.id(id)).isSelected();
 	}
 	
+	public boolean isCheckMarcado(By by) {
+		return driver.findElement(by).isSelected();
+	}
+	
 	
 	/**********Combo*************************/
 	
@@ -67,6 +73,14 @@ public class DSL {
 		Select combo=new Select(element);// uso a classe select pois ela tem um conjunto de métodos para manipulação de elementos do tipo select ou lista suspensas em html
 		combo.selectByVisibleText(valor);
 	}
+	
+
+     public void selecionarComboPrime(String path,String textoVisivel) {
+    driver.findElement(By.xpath(path)).click();
+    driver.findElement(By.xpath("//li[contains(normalize-space(.),'" + textoVisivel + "')]")).click();
+    
+    }
+
 	
 	public String obterValorCombo(String id,String valor) {
 		WebElement element=driver.findElement(By.id(id)); // aqui crio uma varável do tipo WebElement que é o tipo para qualquer retorno de infromação de uma página 
@@ -187,4 +201,6 @@ public class DSL {
 	public void trocarJanela(String id) {
 		driver.switchTo().window(id);
 	}
+	 
+	 
 }
