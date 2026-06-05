@@ -19,13 +19,13 @@ import br.com.projeto.page.CampoTreinamentoPage;
 public class DesafioCadastro extends BaseTest{
 	
 
-	private DSL dsl;
+ 
 	private CampoTreinamentoPage page;
 	
 	@BeforeEach // realizado antes da execução de cada método
 	public void inicializa() {
 		
-	    DriverFactory.getDriver();
+		DriverFactory.getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 	   
 	}
 	

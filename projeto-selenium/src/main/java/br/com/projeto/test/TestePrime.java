@@ -18,7 +18,7 @@ public class TestePrime {
 	
 	@BeforeEach // realizado antes da execução de cada método
 	public void inicializa() {
-		DriverFactory.getDriver();
+		DriverFactory.getDriver().get("\"file:///\" + System.getProperty(\"user.dir\") + \"/src/main/resources/componentes.html\"");
         dsl=new DSL();	
 	}
 	

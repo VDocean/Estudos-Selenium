@@ -18,12 +18,16 @@ public class DriverFactory {
 	    driver=new ChromeDriver();
 		driver.manage().window().setSize(new Dimension(1200, 765));
 		
+		
 		}
 		return driver;
 	}
 	
 	public static void killDriver() {
+		if(driver!=null) {
 		driver.quit();
+		driver=null;
+		}
 	}
 
 }

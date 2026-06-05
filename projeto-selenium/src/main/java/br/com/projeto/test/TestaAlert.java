@@ -19,8 +19,8 @@ private DSL dsl;
 
 	@BeforeEach // realizado antes da execução de cada método
 	public void inicializa() {
-		DriverFactory.getDriver();
-		// file/// indica que é uma url local , System.getProperty("user.dir") retorna o diretorio de trabalho atual
+		DriverFactory.getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		
 		
 	}
 	

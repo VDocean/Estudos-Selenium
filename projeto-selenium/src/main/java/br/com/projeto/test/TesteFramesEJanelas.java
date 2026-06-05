@@ -4,6 +4,9 @@ import org.openqa.selenium.Dimension;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import br.com.projeto.core.DriverFactory;
+
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.jupiter.api.AfterEach;
@@ -19,10 +22,7 @@ public class TesteFramesEJanelas {
 	
 	@BeforeEach // realizado antes da execução de cada método
 	public void inicializa() {
-		driver=new ChromeDriver(); 
-		driver.manage().window().setSize(new Dimension(1200, 765));
-		driver.get("file:///"+ System.getProperty("user.dir")+ "/src/main/resources/componentes.html"); // essa linha pede para o driver buscar uma url
-		// file/// indica que é uma url local , System.getProperty("user.dir") retorna o diretorio de trabalho atual
+		DriverFactory.getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 	}
 	
 	

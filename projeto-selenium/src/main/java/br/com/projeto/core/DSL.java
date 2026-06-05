@@ -12,11 +12,6 @@ import org.openqa.selenium.support.ui.Select;
 
 public class DSL {
 	
-	
-	
-	
-
-
      /**********Text field e text area***************/
 	
 	//permite escrever em campo acessado por tag

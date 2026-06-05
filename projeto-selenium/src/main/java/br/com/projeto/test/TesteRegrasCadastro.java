@@ -16,6 +16,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import br.com.projeto.core.BasePage;
 import br.com.projeto.core.DSL;
 import br.com.projeto.core.DriverFactory;
 import br.com.projeto.page.CampoTreinamentoPage;
@@ -23,10 +24,9 @@ import br.com.projeto.page.CampoTreinamentoPage;
 /* PARAMETRIZAÇÃO */
 /* É um conceito que trata o conteúdo que são postos dentro dos campos de uma page, de forma que possa fazer inúmeros testes de uma vez só*/
 @RunWith(Parameterized.class)
-public class TesteRegrasCadastro {
+public class TesteRegrasCadastro extends BasePage{
 	
-    private WebDriver driver;
-	private DSL dsl;
+   
 	private CampoTreinamentoPage page;
 	@Parameter //------> Aqui digo a ordem que deve ser seguida pelos parâmetros no método no qual eles serão passados
 	private String nome;
@@ -43,14 +43,13 @@ public class TesteRegrasCadastro {
 	
 	@BeforeEach // realizado antes da execução de cada método
 	public void inicializa() {
-		DriverFactory.getDriver();
-        dsl=new DSL();
+		DriverFactory.getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
         page=new CampoTreinamentoPage();
 	}
 	
 	@AfterEach // realizado após a execução de cada método
 	public void finaliza() {
-		driver.quit();//fecha o navegador
+		DriverFactory.killDriver();
 	}
 	
 	
