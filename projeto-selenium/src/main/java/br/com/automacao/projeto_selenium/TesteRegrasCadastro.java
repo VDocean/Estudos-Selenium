@@ -16,6 +16,9 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import br.com.projeto.core.DSL;
+import br.com.projeto.core.DriverFactory;
+
 /* PARAMETRIZAÇÃO */
 /* É um conceito que trata o conteúdo que são postos dentro dos campos de uma page, de forma que possa fazer inúmeros testes de uma vez só*/
 @RunWith(Parameterized.class)
@@ -39,12 +42,9 @@ public class TesteRegrasCadastro {
 	
 	@BeforeEach // realizado antes da execução de cada método
 	public void inicializa() {
-		driver=new ChromeDriver();
-		driver.manage().window().setSize(new Dimension(1200, 765));
-		driver.get("file:///"+ System.getProperty("user.dir")+ "/src/main/resources/componentes.html"); // essa linha pede para o driver buscar uma url
-		// file/// indica que é uma url local , System.getProperty("user.dir") retorna o diretorio de trabalho atual
-        dsl=new DSL(driver);
-        page=new CampoTreinamentoPage(driver);
+		DriverFactory.getDriver();
+        dsl=new DSL();
+        page=new CampoTreinamentoPage();
 	}
 	
 	@AfterEach // realizado após a execução de cada método

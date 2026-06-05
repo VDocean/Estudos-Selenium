@@ -13,6 +13,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import br.com.projeto.core.DSL;
+import br.com.projeto.core.DriverFactory;
+
 public class DesafioValidaRegrasDeNegocios {
 	/*
 	 * 1 - nome é obrigatório
@@ -21,22 +24,20 @@ public class DesafioValidaRegrasDeNegocios {
 	 * 4 - não posso esolher simultaneamente  carne e vegetariano
 	 * 5 -  não posso escolher um esporte e o que é esporte
 	 */
-	private WebDriver driver;
+
 	private DSL dsl;
 	private CampoTreinamentoPage page;
 	
 	@BeforeEach // realizado antes da execução de cada método
 	public void inicializa() {
-	    driver=new ChromeDriver(); //inicializa o driver do navegador em questão
-		driver.manage().window().setSize(new Dimension(1200, 765));//seta o tamanho da aba de teste que sera aberta
-		driver.get("file:///"+ System.getProperty("user.dir")+ "/src/main/resources/componentes.html");// diz ao selenim um arquivo será pego
-	    dsl=new DSL(driver);
-	    page=new CampoTreinamentoPage(driver);
+	    
+	    DriverFactory.getDriver();
+	    page=new CampoTreinamentoPage();
 	}
 	
 	@AfterEach // realizado após a execução de cada método
 	public void finaliza() {
-		driver.quit();//fecha a guia atual
+		DriverFactory.getDriver().quit();//fecha a guia atual
 	}
 	
 	

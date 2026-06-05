@@ -3,14 +3,12 @@ package br.com.automacao.projeto_selenium;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import br.com.projeto.core.DSL;
+
 public class CampoTreinamentoPage {
 	
 	private DSL dsl;
 	
-	CampoTreinamentoPage(WebDriver driver){
-		
-		dsl=new DSL(driver);
-	}
 	
 	public void setNome(String nome) {
 		dsl.escrever("elementosForm:nome", nome);

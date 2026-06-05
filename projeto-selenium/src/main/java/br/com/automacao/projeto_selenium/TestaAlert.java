@@ -9,6 +9,9 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import br.com.projeto.core.DSL;
+import br.com.projeto.core.DriverFactory;
+
 public class TestaAlert {
 	
 private WebDriver driver;
@@ -16,17 +19,15 @@ private DSL dsl;
 
 	@BeforeEach // realizado antes da execução de cada método
 	public void inicializa() {
-		driver=new ChromeDriver(); 
-		driver.manage().window().setSize(new Dimension(1200, 765));
-		driver.get("file:///"+ System.getProperty("user.dir")+ "/src/main/resources/componentes.html"); // essa linha pede para o driver buscar uma url
+		DriverFactory.getDriver();
 		// file/// indica que é uma url local , System.getProperty("user.dir") retorna o diretorio de trabalho atual
-		dsl=new DSL(driver);
+		
 	}
 	
 	
 	@AfterEach // realizado após a execução de cada método
 	public void finaliza() {
-		driver.quit();//fecha o navegador
+		DriverFactory.killDriver();//fecha o navegador
 	}
 	
 	@Test
