@@ -1,4 +1,4 @@
-package br.com.automacao.projeto_selenium;
+package br.com.projeto.test;
 
 import org.openqa.selenium.Dimension;
 

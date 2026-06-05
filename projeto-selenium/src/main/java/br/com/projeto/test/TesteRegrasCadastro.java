@@ -1,4 +1,4 @@
-package br.com.automacao.projeto_selenium;
+package br.com.projeto.test;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,6 +18,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import br.com.projeto.core.DSL;
 import br.com.projeto.core.DriverFactory;
+import br.com.projeto.page.CampoTreinamentoPage;
 
 /* PARAMETRIZAÇÃO */
 /* É um conceito que trata o conteúdo que são postos dentro dos campos de uma page, de forma que possa fazer inúmeros testes de uma vez só*/

@@ -1,4 +1,4 @@
-package br.com.automacao.projeto_selenium;
+package br.com.projeto.test;
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

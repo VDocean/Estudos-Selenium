@@ -1,13 +1,14 @@
-package br.com.automacao.projeto_selenium;
+package br.com.projeto.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import br.com.projeto.core.BasePage;
+import br.com.projeto.core.BaseTest;
 import br.com.projeto.core.DSL;
 
-public class CampoTreinamentoPage {
+public class CampoTreinamentoPage extends BasePage{
 	
-	private DSL dsl;
 	
 	
 	public void setNome(String nome) {

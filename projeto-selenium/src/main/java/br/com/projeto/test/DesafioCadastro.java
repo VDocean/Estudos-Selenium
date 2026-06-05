@@ -1,4 +1,4 @@
-package br.com.automacao.projeto_selenium;
+package br.com.projeto.test;
 import org.junit.Assert;
 
 import org.junit.jupiter.api.AfterEach;
@@ -11,10 +11,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import br.com.projeto.core.BaseTest;
 import br.com.projeto.core.DSL;
 import br.com.projeto.core.DriverFactory;
+import br.com.projeto.page.CampoTreinamentoPage;
 
-public class DesafioCadastro {
+public class DesafioCadastro extends BaseTest{
 	
 
 	private DSL dsl;
@@ -28,11 +30,7 @@ public class DesafioCadastro {
 	}
 	
 	
-	@AfterEach // realizado após a execução de cada método
-	public void finaliza() {
-		DriverFactory.killDriver();//fecha o navegador
-	}
-	
+ 
 	@Test
 	public void preencheDadosCadastro() {
 		

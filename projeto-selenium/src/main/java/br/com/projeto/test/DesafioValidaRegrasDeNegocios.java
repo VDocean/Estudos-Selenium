@@ -1,4 +1,4 @@
-package br.com.automacao.projeto_selenium;
+package br.com.projeto.test;
 
 import org.junit.Assert;
  
@@ -13,10 +13,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import br.com.projeto.core.BaseTest;
 import br.com.projeto.core.DSL;
 import br.com.projeto.core.DriverFactory;
+import br.com.projeto.page.CampoTreinamentoPage;
 
-public class DesafioValidaRegrasDeNegocios {
+public class DesafioValidaRegrasDeNegocios extends BaseTest {
 	/*
 	 * 1 - nome é obrigatório
 	 * 2 - sobrenome é obrigatório
@@ -35,10 +37,6 @@ public class DesafioValidaRegrasDeNegocios {
 	    page=new CampoTreinamentoPage();
 	}
 	
-	@AfterEach // realizado após a execução de cada método
-	public void finaliza() {
-		DriverFactory.getDriver().quit();//fecha a guia atual
-	}
 	
 	
 	@Test
