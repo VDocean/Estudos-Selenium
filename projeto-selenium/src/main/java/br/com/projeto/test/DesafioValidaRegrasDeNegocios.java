@@ -13,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import br.com.projeto.core.BasePage;
 import br.com.projeto.core.BaseTest;
 import br.com.projeto.core.DSL;
 import br.com.projeto.core.DriverFactory;
@@ -30,11 +31,13 @@ public class DesafioValidaRegrasDeNegocios extends BaseTest {
 	private DSL dsl;
 	private CampoTreinamentoPage page;
 	
+	
 	@BeforeEach // realizado antes da execução de cada método
 	public void inicializa() {
 	    
 		DriverFactory.getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 	    page=new CampoTreinamentoPage();
+	    dsl=new DSL();
 	}
 	
 	
